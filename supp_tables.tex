@@ -1,0 +1,96 @@
+% Supplementary tables - real simulation output (n as noted)
+\begin{table}[htbp]\centering
+\caption{Robustness across obstacle density (general, $50\times50$, $n=30$ maps each).}
+\label{tab:robust_density}
+\begin{tabular}{ccccc}\toprule
+Density & Traditional nodes & Proposed nodes & Reduction & $p$ \\\midrule
+10\% & 265.5 & 66.8 & 74.8\% & 2.5e-12 \\
+20\% & 525.0 & 103.8 & 80.2\% & 1.4e-17 \\
+30\% & 672.8 & 250.4 & 62.8\% & 9.1e-17 \\
+40\% & 666.5 & 414.1 & 37.9\% & 4.2e-14 \\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Scalability across map size (general, 20\% obstacles, $n=15$ each). Node reduction grows with map size; on tiny maps preprocessing is not amortized.}
+\label{tab:scalability}
+\begin{tabular}{ccccc}\toprule
+Size & Traditional nodes & Proposed nodes & Node red. & Time red. \\\midrule
+$20\times20$ & 77$\pm$24 & 35$\pm$13 & 54.2\% & -34.6\% \\
+$50\times50$ & 505$\pm$113 & 99$\pm$23 & 80.3\% & 32.3\% \\
+$100\times100$ & 1960$\pm$311 & 280$\pm$56 & 85.7\% & 55.2\% \\
+$150\times150$ & 4928$\pm$634 & 487$\pm$77 & 90.1\% & 67.1\% \\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Sensitivity of the heuristic inflation $\varepsilon$ (general, $n=30$, $\beta=0.15$). Larger $\varepsilon$ expands fewer nodes at a larger suboptimality bound $(1+2\beta)\varepsilon$.}
+\label{tab:sens_eps}
+\begin{tabular}{ccccc}\toprule
+$\varepsilon$ & Nodes & Turns & Length & Bound $(1+2\beta)\varepsilon$ \\\midrule
+1.00 & 195.4 & 3.33 & 70.58 & 1.30 \\
+1.05 & 123.9 & 3.50 & 70.60 & 1.37 \\
+1.10 (used) & 103.8 & 3.50 & 70.69 & 1.43 \\
+1.20 & 86.8 & 3.77 & 70.91 & 1.56 \\
+1.30 & 79.8 & 4.07 & 70.98 & 1.69 \\
+1.50 & 74.7 & 4.07 & 70.97 & 1.95 \\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Sensitivity of the direction penalty $\beta$ (general, $n=30$, $\varepsilon=1.1$).}
+\label{tab:sens_beta}
+\begin{tabular}{cccc}\toprule
+$\beta$ & Nodes & Turns & Length \\\midrule
+0.00 & 81.6 & 4.60 & 70.70 \\
+0.10 & 96.6 & 3.60 & 70.72 \\
+0.15 (used) & 103.8 & 3.50 & 70.69 \\
+0.20 & 108.7 & 3.47 & 70.70 \\
+0.30 & 116.8 & 3.57 & 70.72 \\
+0.50 & 127.0 & 3.80 & 71.00 \\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Turn count under different angle thresholds (general, $n=30$). The turn difference is not statistically significant at any threshold, so no turn-reduction claim is made against Traditional A*.}
+\label{tab:turn_thresh}
+\begin{tabular}{ccccc}\toprule
+Threshold & Traditional & Proposed & Diff. & $p$ \\\midrule
+$13^\circ$ & 5.03 & 4.47 & 11.3\% & 0.159 \\
+$18^\circ$ & 4.13 & 3.50 & 15.3\% & 0.129 \\
+$23^\circ$ & 2.67 & 2.53 & 5.0\% & 0.674 \\
+$28^\circ$ & 2.13 & 1.93 & 9.4\% & 0.557 \\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Hotspot-weight ablation (warehouse, $n=30$). The hotspot term steers paths away from congested cells at the cost of extra node expansion.}
+\label{tab:hotspot_ablation}
+\begin{tabular}{cccc}\toprule
+Configuration & Nodes & Turns & Hotspot cells traversed \\\midrule
+With hotspot weight & 110.6 & 3.10 & 0.07 \\
+Without hotspot weight & 66.1 & 5.20 & 0.30 \\
+\bottomrule\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Sensitivity of warehouse parameters $\alpha$ (environmental weight), $\lambda$ (hotspot penalty), and $\sigma$ (hotspot radius) (warehouse, $n=30$, $\varepsilon=1.3$, $\beta=0.15$). ``Hotspot cells'' is the mean number of congested cells the final path traverses.}
+\label{tab:sens_warehouse}
+\begin{tabular}{lcccc}\toprule
+Parameter & Nodes & Turns & Length & Hotspot cells \\\midrule
+\multicolumn{5}{l}{\emph{Varying $\alpha$}} \\
+$\alpha=0.00$ & 109.6 & 3.47 & 54.14 & 0.067 \\
+$\alpha=0.15$ & 104.8 & 3.00 & 54.04 & 0.067 \\
+$\alpha=0.30$ (used) & 110.6 & 3.10 & 54.09 & 0.067 \\
+$\alpha=0.45$ & 110.6 & 3.10 & 54.03 & 0.067 \\
+$\alpha=0.60$ & 115.1 & 2.87 & 54.01 & 0.100 \\
+\midrule
+\multicolumn{5}{l}{\emph{Varying $\lambda$}} \\
+$\lambda=0.00$ & 66.1 & 5.20 & 54.28 & 0.300 \\
+$\lambda=0.25$ & 82.6 & 3.73 & 54.03 & 0.133 \\
+$\lambda=0.50$ (used) & 110.6 & 3.10 & 54.09 & 0.067 \\
+$\lambda=0.75$ & 145.3 & 3.17 & 54.62 & 0.033 \\
+$\lambda=1.00$ & 193.9 & 2.80 & 54.70 & 0.033 \\
+\midrule
+\multicolumn{5}{l}{\emph{Varying $\sigma$}} \\
+$\sigma=1.00$ & 82.6 & 3.80 & 54.20 & 0.033 \\
+$\sigma=2.00$ (used) & 110.6 & 3.10 & 54.09 & 0.067 \\
+$\sigma=3.00$ & 181.7 & 2.87 & 54.25 & 0.067 \\
+$\sigma=4.00$ & 259.0 & 2.47 & 53.91 & 0.067 \\
+\bottomrule
+\end{tabular}\end{table}

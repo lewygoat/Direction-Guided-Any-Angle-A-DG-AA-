@@ -1,0 +1,157 @@
+Reproduction of Improved A* Path Planning - Real Simulation Results
+========================================================================
+Config: {"n_maps": 30, "grid": "50x50", "general_obstacle_ratio": 0.2, "R_d": 3, "rho_th": 0.25, "alpha": 0.3, "beta": 0.15, "lambda": 0.5, "sigma": 2.0, "eps_general": 1.1, "eps_warehouse": 1.3, "method": "proposed_v3 (any-angle + direction-guided weighted heuristic)", "weighted_eps": 1.5, "turn_thresh_deg": 18.0}
+Paired design: all methods run on the SAME 30 maps per environment.
+NOTE on JPS: optimizes pure distance only; no environment/hotspot
+weights and no turn cost, so its objective differs from Proposed.
+Nodes = pops from OPEN into CLOSED (JPS: jump-point expansions).
+
+########################################################################
+ENVIRONMENT: GENERAL
+########################################################################
+
+Mean +/- Std (n=30)
+Method                     Length          Nodes        Turns     Time(ms)
+--------------------------------------------------------------------------
+Traditional A*         70.57±0.78  538.13±163.25    4.67±2.37    4.26±2.20
+Weighted A*            71.13±1.33     67.47±9.66    5.77±2.42    1.07±0.65
+16-neighbor A*         69.81±0.60   327.70±91.22    3.87±2.65    8.11±3.09
+Theta*                 70.28±0.81  334.57±122.90    2.97±1.61    5.77±3.06
+JPS                    70.78±0.94   284.93±86.06    5.07±2.64    4.12±1.65
+Proposed               70.77±0.99   110.87±28.27    4.03±1.61    3.15±1.34
+
+Improvement vs Traditional A* (positive = better/lower):
+  Weighted A*      length   -0.8%  nodes  +87.5%  turns  -23.6%  time  +74.9%
+  16-neighbor A*   length   +1.1%  nodes  +39.1%  turns  +17.1%  time  -90.4%
+  Theta*           length   +0.4%  nodes  +37.8%  turns  +36.4%  time  -35.5%
+  JPS              length   -0.3%  nodes  +47.1%  turns   -8.6%  time   +3.3%
+  Proposed         length   -0.3%  nodes  +79.4%  turns  +13.6%  time  +26.2%
+
+Paired t-test of each method vs Proposed:
+  Traditional A*:
+    length  p=0.06413 d=-0.351 95%CI[-0.404,+0.012] (Traditional A* mean=70.574, Proposed mean=70.770)
+    nodes   p=7.373e-16 d=+2.903 95%CI[+372.316,+482.218] (Traditional A* mean=538.133, Proposed mean=110.867)
+    turns   p=0.1081 d=+0.303 95%CI[-0.148,+1.415] (Traditional A* mean=4.667, Proposed mean=4.033)
+    time    p=0.01118 d=+0.495 95%CI[+0.274,+1.960] (Traditional A* mean=4.263, Proposed mean=3.146)
+  Weighted A*:
+    length  p=0.07673 d=+0.335 95%CI[-0.041,+0.766] (Weighted A* mean=71.132, Proposed mean=70.770)
+    nodes   p=7.033e-11 d=-1.821 95%CI[-52.301,-34.499] (Weighted A* mean=67.467, Proposed mean=110.867)
+    turns   p=0.0002474 d=+0.762 95%CI[+0.884,+2.582] (Weighted A* mean=5.767, Proposed mean=4.033)
+    time    p=4.817e-09 d=-1.497 95%CI[-2.591,-1.556] (Weighted A* mean=1.072, Proposed mean=3.146)
+  16-neighbor A*:
+    length  p=1.29e-09 d=-1.595 95%CI[-1.190,-0.738] (16-neighbor A* mean=69.806, Proposed mean=70.770)
+    nodes   p=1.015e-14 d=+2.623 95%CI[+185.967,+247.700] (16-neighbor A* mean=327.700, Proposed mean=110.867)
+    turns   p=0.7183 d=-0.066 95%CI[-1.103,+0.769] (16-neighbor A* mean=3.867, Proposed mean=4.033)
+    time    p=4.325e-09 d=+1.505 95%CI[+3.737,+6.202] (16-neighbor A* mean=8.115, Proposed mean=3.146)
+  Theta*:
+    length  p=1.987e-05 d=-0.929 95%CI[-0.686,-0.293] (Theta* mean=70.281, Proposed mean=70.770)
+    nodes   p=4.785e-12 d=+2.044 95%CI[+182.838,+264.562] (Theta* mean=334.567, Proposed mean=110.867)
+    turns   p=0.001618 d=-0.635 95%CI[-1.694,-0.439] (Theta* mean=2.967, Proposed mean=4.033)
+    time    p=2.504e-05 d=+0.914 95%CI[+1.554,+3.703] (Theta* mean=5.774, Proposed mean=3.146)
+  JPS:
+    length  p=0.9245 d=+0.017 95%CI[-0.221,+0.243] (JPS mean=70.781, Proposed mean=70.770)
+    nodes   p=1.028e-13 d=+2.393 95%CI[+146.909,+201.224] (JPS mean=284.933, Proposed mean=110.867)
+    turns   p=0.02691 d=+0.426 95%CI[+0.127,+1.940] (JPS mean=5.067, Proposed mean=4.033)
+    time    p=0.00495 d=+0.555 95%CI[+0.321,+1.637] (JPS mean=4.124, Proposed mean=3.146)
+
+Paired t-test of each method vs Traditional A*:
+  Weighted A*:
+    length  p=0.009345 d=+0.508 95%CI[+0.148,+0.968] (Weighted A* mean=71.132, Traditional A* mean=70.574)
+    nodes   p=3.933e-16 d=-2.974 95%CI[-529.763,-411.570] (Weighted A* mean=67.467, Traditional A* mean=538.133)
+    turns   p=0.0325 d=+0.410 95%CI[+0.098,+2.102] (Weighted A* mean=5.767, Traditional A* mean=4.667)
+    time    p=1.534e-08 d=-1.414 95%CI[-4.033,-2.348] (Weighted A* mean=1.072, Traditional A* mean=4.263)
+  16-neighbor A*:
+    length  p=6.981e-09 d=-1.471 95%CI[-0.963,-0.573] (16-neighbor A* mean=69.806, Traditional A* mean=70.574)
+    nodes   p=1.06e-10 d=-1.788 95%CI[-254.385,-166.482] (16-neighbor A* mean=327.700, Traditional A* mean=538.133)
+    turns   p=0.1248 d=-0.289 95%CI[-1.835,+0.235] (16-neighbor A* mean=3.867, Traditional A* mean=4.667)
+    time    p=9.894e-08 d=+1.283 95%CI[+2.731,+4.973] (16-neighbor A* mean=8.115, Traditional A* mean=4.263)
+  Theta*:
+    length  p=0.0001527 d=-0.795 95%CI[-0.431,-0.156] (Theta* mean=70.281, Traditional A* mean=70.574)
+    nodes   p=3.829e-12 d=-2.063 95%CI[-240.404,-166.729] (Theta* mean=334.567, Traditional A* mean=538.133)
+    turns   p=0.0001637 d=-0.790 95%CI[-2.504,-0.896] (Theta* mean=2.967, Traditional A* mean=4.667)
+    time    p=0.01831 d=+0.456 95%CI[+0.275,+2.748] (Theta* mean=5.774, Traditional A* mean=4.263)
+  JPS:
+    length  p=0.01087 d=+0.497 95%CI[+0.051,+0.362] (JPS mean=70.781, Traditional A* mean=70.574)
+    nodes   p=5.985e-17 d=-3.194 95%CI[-282.804,-223.596] (JPS mean=284.933, Traditional A* mean=538.133)
+    turns   p=0.04975 d=+0.374 95%CI[+0.000,+0.800] (JPS mean=5.067, Traditional A* mean=4.667)
+    time    p=0.7422 d=-0.061 95%CI[-0.992,+0.715] (JPS mean=4.124, Traditional A* mean=4.263)
+  Proposed:
+    length  p=0.06413 d=+0.351 95%CI[-0.012,+0.404] (Proposed mean=70.770, Traditional A* mean=70.574)
+    nodes   p=7.373e-16 d=-2.903 95%CI[-482.218,-372.316] (Proposed mean=110.867, Traditional A* mean=538.133)
+    turns   p=0.1081 d=-0.303 95%CI[-1.415,+0.148] (Proposed mean=4.033, Traditional A* mean=4.667)
+    time    p=0.01118 d=-0.495 95%CI[-1.960,-0.274] (Proposed mean=3.146, Traditional A* mean=4.263)
+
+########################################################################
+ENVIRONMENT: WAREHOUSE
+########################################################################
+
+Mean +/- Std (n=30)
+Method                     Length          Nodes        Turns     Time(ms)
+--------------------------------------------------------------------------
+Traditional A*         53.93±5.76  427.23±212.90    3.33±2.31    5.80±5.93
+Weighted A*            54.30±6.30     52.83±6.78    5.20±3.66    1.30±1.71
+16-neighbor A*         53.51±5.73  238.00±110.02    2.33±1.54    8.29±6.69
+Theta*                 53.62±5.76  217.83±112.36    2.50±1.66    7.16±7.45
+JPS                    54.70±5.75    84.97±52.61    3.93±2.92    5.03±3.66
+Proposed               54.09±5.75   110.57±37.35    3.10±1.65    6.48±3.13
+
+Improvement vs Traditional A* (positive = better/lower):
+  Weighted A*      length   -0.7%  nodes  +87.6%  turns  -56.0%  time  +77.7%
+  16-neighbor A*   length   +0.8%  nodes  +44.3%  turns  +30.0%  time  -42.9%
+  Theta*           length   +0.6%  nodes  +49.0%  turns  +25.0%  time  -23.6%
+  JPS              length   -1.4%  nodes  +80.1%  turns  -18.0%  time  +13.2%
+  Proposed         length   -0.3%  nodes  +74.1%  turns   +7.0%  time  -11.7%
+
+Paired t-test of each method vs Proposed:
+  Traditional A*:
+    length  p=0.2169 d=-0.230 95%CI[-0.403,+0.095] (Traditional A* mean=53.935, Proposed mean=54.089)
+    nodes   p=1.268e-09 d=+1.596 95%CI[+242.587,+390.747] (Traditional A* mean=427.233, Proposed mean=110.567)
+    turns   p=0.6244 d=+0.090 95%CI[-0.731,+1.198] (Traditional A* mean=3.333, Proposed mean=3.100)
+    time    p=0.5846 d=-0.101 95%CI[-3.194,+1.834] (Traditional A* mean=5.797, Proposed mean=6.477)
+  Weighted A*:
+    length  p=0.2346 d=+0.222 95%CI[-0.142,+0.557] (Weighted A* mean=54.296, Proposed mean=54.089)
+    nodes   p=2.121e-10 d=-1.733 95%CI[-70.172,-45.295] (Weighted A* mean=52.833, Proposed mean=110.567)
+    turns   p=0.001146 d=+0.659 95%CI[+0.910,+3.290] (Weighted A* mean=5.200, Proposed mean=3.100)
+    time    p=5.566e-08 d=-1.323 95%CI[-6.644,-3.719] (Weighted A* mean=1.295, Proposed mean=6.477)
+  16-neighbor A*:
+    length  p=2.317e-06 d=-1.071 95%CI[-0.777,-0.375] (16-neighbor A* mean=53.513, Proposed mean=54.089)
+    nodes   p=1.211e-07 d=+1.269 95%CI[+89.950,+164.917] (16-neighbor A* mean=238.000, Proposed mean=110.567)
+    turns   p=0.01677 d=-0.463 95%CI[-1.384,-0.149] (16-neighbor A* mean=2.333, Proposed mean=3.100)
+    time    p=0.2244 d=+0.227 95%CI[-1.171,+4.789] (16-neighbor A* mean=8.285, Proposed mean=6.477)
+  Theta*:
+    length  p=2.795e-05 d=-0.906 95%CI[-0.667,-0.278] (Theta* mean=53.616, Proposed mean=54.089)
+    nodes   p=2.12e-06 d=+1.076 95%CI[+70.057,+144.477] (Theta* mean=217.833, Proposed mean=110.567)
+    turns   p=0.04479 d=-0.383 95%CI[-1.185,-0.015] (Theta* mean=2.500, Proposed mean=3.100)
+    time    p=0.6382 d=+0.087 95%CI[-2.265,+3.636] (Theta* mean=7.162, Proposed mean=6.477)
+  JPS:
+    length  p=0.02275 d=+0.439 95%CI[+0.091,+1.128] (JPS mean=54.699, Proposed mean=54.089)
+    nodes   p=0.005109 d=-0.553 95%CI[-42.883,-8.317] (JPS mean=84.967, Proposed mean=110.567)
+    turns   p=0.1584 d=+0.264 95%CI[-0.344,+2.010] (JPS mean=3.933, Proposed mean=3.100)
+    time    p=0.1599 d=-0.263 95%CI[-3.497,+0.605] (JPS mean=5.031, Proposed mean=6.477)
+
+Paired t-test of each method vs Traditional A*:
+  Weighted A*:
+    length  p=0.02565 d=+0.429 95%CI[+0.047,+0.675] (Weighted A* mean=54.296, Traditional A* mean=53.935)
+    nodes   p=7.997e-11 d=-1.810 95%CI[-451.626,-297.174] (Weighted A* mean=52.833, Traditional A* mean=427.233)
+    turns   p=0.00209 d=+0.617 95%CI[+0.737,+2.996] (Weighted A* mean=5.200, Traditional A* mean=3.333)
+    time    p=0.0004085 d=-0.729 95%CI[-6.808,-2.196] (Weighted A* mean=1.295, Traditional A* mean=5.797)
+  16-neighbor A*:
+    length  p=3.745e-06 d=-1.039 95%CI[-0.574,-0.271] (16-neighbor A* mean=53.513, Traditional A* mean=53.935)
+    nodes   p=1.471e-08 d=-1.417 95%CI[-239.099,-139.368] (16-neighbor A* mean=238.000, Traditional A* mean=427.233)
+    turns   p=0.05001 d=-0.373 95%CI[-2.000,+0.000] (16-neighbor A* mean=2.333, Traditional A* mean=3.333)
+    time    p=0.05748 d=+0.361 95%CI[-0.084,+5.061] (16-neighbor A* mean=8.285, Traditional A* mean=5.797)
+  Theta*:
+    length  p=0.0001415 d=-0.800 95%CI[-0.467,-0.170] (Theta* mean=53.616, Traditional A* mean=53.935)
+    nodes   p=8.159e-10 d=-1.629 95%CI[-257.386,-161.414] (Theta* mean=217.833, Traditional A* mean=427.233)
+    turns   p=0.0758 d=-0.336 95%CI[-1.759,+0.092] (Theta* mean=2.500, Traditional A* mean=3.333)
+    time    p=0.4375 d=+0.144 95%CI[-2.181,+4.912] (Theta* mean=7.162, Traditional A* mean=5.797)
+  JPS:
+    length  p=8.785e-05 d=+0.831 95%CI[+0.421,+1.107] (JPS mean=54.699, Traditional A* mean=53.935)
+    nodes   p=1.787e-12 d=-2.130 95%CI[-402.263,-282.270] (JPS mean=84.967, Traditional A* mean=427.233)
+    turns   p=0.01949 d=+0.452 95%CI[+0.104,+1.096] (JPS mean=3.933, Traditional A* mean=3.333)
+    time    p=0.5144 d=-0.121 95%CI[-3.141,+1.608] (JPS mean=5.031, Traditional A* mean=5.797)
+  Proposed:
+    length  p=0.2169 d=+0.230 95%CI[-0.095,+0.403] (Proposed mean=54.089, Traditional A* mean=53.935)
+    nodes   p=1.268e-09 d=-1.596 95%CI[-390.747,-242.587] (Proposed mean=110.567, Traditional A* mean=427.233)
+    turns   p=0.6244 d=-0.090 95%CI[-1.198,+0.731] (Proposed mean=3.100, Traditional A* mean=3.333)
+    time    p=0.5846 d=+0.101 95%CI[-1.834,+3.194] (Proposed mean=6.477, Traditional A* mean=5.797)
