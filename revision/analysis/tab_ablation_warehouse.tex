@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Component ablation, warehouse environment; stars: Holm-adjusted paired $t$-test vs full method.}\label{tab:abl_warehouse}
+\begin{tabular}{lccccccc}
+\toprule
+Method & Nodes & Reopened & Length & Op. cost & $C/C^*_8$ & Turns & Time (ms) \\
+\midrule
+Proposed (beta=0) & $812.3\pm654.0^{***}$ & $415.66\pm567.65^{***}$ & $50.26\pm6.59^{**}$ & $\mathbf{61.44\pm7.70^{***}}$ & $\mathbf{0.9730\pm0.0158^{***}}$ & $7.40\pm3.22$ & -- \\
+Proposed (fixed eps) & $\mathbf{310.2\pm197.4^{***}}$ & $\underline{89.66\pm127.88^{***}}$ & $\mathbf{50.05\pm6.47^{***}}$ & $61.67\pm7.78^{***}$ & $0.9767\pm0.0180^{***}$ & $7.47\pm3.44$ & -- \\
+Proposed (grid only) & $1526.6\pm2477.8^{***}$ & $1115.53\pm2417.35^{***}$ & $50.97\pm6.83^{***}$ & $62.21\pm7.83^{***}$ & $0.9852\pm0.0169^{***}$ & $\mathbf{7.32\pm2.95}$ & -- \\
+Proposed (no reopen) & $\underline{368.8\pm166.9^{***}}$ & $\mathbf{0.00\pm0.00^{***}}$ & $\underline{50.20\pm6.53}$ & $62.01\pm7.86^{***}$ & $0.9819\pm0.0176^{***}$ & $7.89\pm3.44^{***}$ & -- \\
+\textbf{Proposed} & $696.8\pm554.3$ & $347.29\pm473.06$ & $50.20\pm6.54$ & $\underline{61.48\pm7.71}$ & $\underline{0.9737\pm0.0165}$ & $\underline{7.36\pm3.28}$ & $\mathbf{1.27\pm1.16}$ \\
+\bottomrule
+\end{tabular}
+\end{table}

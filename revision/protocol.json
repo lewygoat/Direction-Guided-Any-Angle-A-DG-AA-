@@ -1,0 +1,199 @@
+{
+ "locked_at": "2026-09-29, before any revision result was inspected",
+ "algorithm": {
+  "reopen_closed": true,
+  "anyangle_parent": "min cost of (via current, via parent(current) along exact integrated segment)",
+  "edge_cost": "integral of w along the segment, w = we*wh (warehouse), w = 1 (general)",
+  "smoothing": "shortcut accepted only if integrated cost does not increase, 3 iterations, applied to every method",
+  "heuristic": "eps(n) * euclid(n,goal) * (1 + beta*max(0,1-a)), eps(n) adaptive with eps_max",
+  "bound": "C <= (1+2beta)*eps_max * C*_8, C*_8 = optimal 8-connected grid cost under the same w"
+ },
+ "splits": {
+  "tuning": "general seeds 9000-9014 at densities 0.1/0.2/0.3/0.4, warehouse seeds 9000-9029, diagonal query",
+  "test_main": "general 20% seeds 0-99, warehouse seeds 0-99, diagonal query + 5 random queries per map"
+ },
+ "tuning_rule": {
+  "grid_eps_max": [
+   1.05,
+   1.1,
+   1.15,
+   1.2,
+   1.25,
+   1.3,
+   1.4,
+   1.5,
+   2.0
+  ],
+  "grid_beta": [
+   0.05,
+   0.1,
+   0.15,
+   0.2,
+   0.3
+  ],
+  "objective": "minimize pooled mean of nodes / nodes(Traditional A*) over all tuning instances",
+  "constraint": "pooled mean cost ratio C / C*_8 <= 1.02 AND guaranteed factor W = (1+2beta)*eps_max <= 1.5",
+  "tie_break": "fewer mean turns at 18 deg",
+  "beta_zero_excluded": "beta = 0 removes the direction penalty; it is reported as the ablation 'Proposed (beta=0)' and via Weighted Theta*, not selectable",
+  "single_config_for_all_environments": true
+ },
+ "amendment_1": {
+  "date": "2026-09-29",
+  "trigger": "original rule selected eps_max = 2.0 (grid upper edge), W = 2.6, which weakens the bounded-suboptimality response requested by all four reviewers",
+  "change": "added W <= 1.5 cap; refined grid on the tuning split only",
+  "cap_rationale": "matches the eps = 1.5 Weighted A* baseline of the original submission and the 1.43/1.69 factors reviewers already assessed; not derived from test-set outcomes",
+  "state_of_test_data_at_amendment": "eps_max = 2.0 test-stage files existed; only record counts and invariant flags were inspected, no test metric was computed; files archived to results_archive_eps2.0/ and all cfg-dependent stages rerun",
+  "frontier_stage": "method labels are explicit (eps, beta) pairs independent of the selected config, so frontier.jsonl is reused unchanged"
+ },
+ "baselines": {
+  "Weighted A*": "eps = tuned eps_max",
+  "Weighted Theta*": "Theta* with eps = tuned eps_max, beta = 0, fixed eps",
+  "Weighted Theta* (matched W)": "Theta* with eps = (1+2beta)*eps_max",
+  "JPS": "pure-distance search; operational cost evaluated after planning"
+ },
+ "statistics": {
+  "unit": "query (paired across methods); map-level cluster bootstrap for CIs",
+  "tests": "paired t-test and Wilcoxon signed-rank",
+  "multiplicity": "Holm within family = (environment, metric), across baselines",
+  "effect_size": "paired Cohen's d",
+  "ci": "95% cluster bootstrap by map, 10000 resamples, seed 12345",
+  "alpha": 0.05
+ },
+ "hotspot_exposure": {
+  "reference_field": "exp(-d^2/(2*2^2)) to nominal hotspots, independent of planner sigma",
+  "metrics": [
+   "integrated exposure along path",
+   "number of distinct cells within 2 cells of a hotspot"
+  ],
+  "queries": "one per warehouse map (seeds 2000-2099) whose lambda=0 Theta* path passes within 2 cells of a hotspot"
+ },
+ "footprint": {
+  "agv_radius_cells": [
+   0.3,
+   0.5
+  ],
+  "inflation": "amended before any footprint result was produced: no map inflation; every edge and any-angle segment must keep exact swept clearance >= rho from all obstacle squares and the map border (cell inflation blocked all 0.5-radius random maps in smoke test)",
+  "metrics": [
+   "success",
+   "min clearance on the original map",
+   "path length fraction with clearance < rho"
+  ]
+ },
+ "timing": "search and smoothing timed separately with perf_counter; profiling with cProfile run single-process",
+ "amendment_2": {
+  "date": "2026-09-29",
+  "frontier2": "adds the selected beta = 0.05 curve over the frontier eps grid (original frontier beta grid predates amendment_1)",
+  "movingai": "E8: maps warehouse-10-20-10-2-1/-2, warehouse-20-40-10-2-1/-2 from movingai.com mapf-map.zip; queries = first 4 lines of random scen 1-25 (100 per map); unit weights (no hotspots in benchmark); 8 processes",
+  "movingai_convention": "our grid forbids a diagonal step only when both side cells are blocked (original paper rule); MovingAI forbids it when either is blocked. A strict-rule Dijkstra reproduced the official optimal lengths within 1e-8, so parsing is verified; C*_8 is computed under our rule and the official length is stored as opt_official",
+  "timing": "timing_main (100 maps x 2 envs, diagonal query) and timing_scale (same maps as scale stage) rerun single-process, 10 repetitions per method, report median and IQR; parallel-run timing columns are not used for any time claim",
+  "compiled_reimplementation": "still pending (E10 part 2)"
+ },
+ "amendment_3": {
+  "date": "2026-09-30",
+  "e10_compiled": "rv_numba.py re-implements all grid planners and JPS with numba; hypot values taken from a Python-built lookup table and segment sums from an exact fsum port so results are bit-identical; equivalence gate rv_numba_equiv.py compared 3676 runs (expanded, reopened, LOS calls, cost, path) with 0 mismatches before any timing; every timed record re-checks equality (nb_equal) and a mismatch halts the stage",
+  "e10_protocol": "timing_nb_main (same 200 instances as timing_main) and timing_nb_scale (same as timing_scale), single process, 10 repetitions, median and IQR, JIT warm-up excluded; weight-map preparation and smoothing reported separately",
+  "e15_kinematic": "differential-drive stop-and-turn model on the smoothed path: each segment driven with a trapezoidal profile (v_max 1 cell/s, a_max 0.5 cell/s^2), in-place rotation at each vertex with a trapezoidal profile (omega_max 1 rad/s, alpha_max 1 rad/s^2); energy proxy = m*v_peak^2 per segment + I*omega_peak^2 + 0.05*|theta| per turn + 0.1*m*L rolling term, m = 1, I = 0.5; metrics kin_time, kin_energy, kin_stops, kin_rot_rad",
+  "e15_scope": "same maps and queries as main stage, point robot (rho = 0) and footprint rho = 0.5 with exact swept clearance; JPS only at rho = 0; model parameters are fixed a priori and not tuned; this is a simulation, not physical validation",
+  "e15_limitation": "no dynamics, slip, localisation error or other AGVs; reported as simulation evidence only"
+ },
+ "amendment_4": {
+  "date": "2026-09-30",
+  "footprint_r1": "restores the rho = 1.0 radius of the original revision plan (E9), which the first protocol draft had silently replaced by 0.3/0.5; two variants: footprint_r1 uses the main diagonal query (reports infeasibility honestly), footprint_r1q selects per map the first random query whose endpoints have clearance >= 1.0 and that is feasible for Traditional A* under the swept model",
+  "timing_nb_movingai": "compiled single-process timing on all 400 MovingAI queries, 10 repetitions, nb_equal checked per record",
+  "bridge": "attribution ladder on the main-stage maps and queries (general eps 1.1, warehouse eps 1.3, beta 0.15 as in the submitted paper): L0 original code proposed_v3; L1 same semantics re-implemented (Bresenham LOS, endpoint-average cost, greedy LOS parent, no reopening, LOS-only smoothing); L2 exact supercover collision; L3 integrated segment cost; L4 cost-based parent choice; L5 reopening; L6 cost-monotone smoothing; L7 adaptive eps; L8 selected config (= Proposed); baselines B0 original Traditional A*, B1 revised Traditional A*; every path re-evaluated with the exact integrated cost",
+  "l0_l1_gap": "diagnosed before launch on 80 instances: L0 and L1 differ only in heap tie-breaking and in stale-entry handling; with both switched to the original rules 80/80 match L0, with both switched to the new rules 80/80 match L1; the original code may expand a node from a stale heap entry whose g exceeds the stored g (possible because the direction penalty makes the key anchor-dependent), which overestimates successor costs; the L0 -> L1 step is reported as its own row rather than hidden",
+  "invariants": "L1-L2 g equals endpoint chain cost; L3-L4 g equals integrated chain cost; L5-L8 and B1 integrated chain cost <= g and <= W*C*_8; L6-L8 smoothing never raises cost; any violation halts the stage"
+ },
+ "pending_not_in_this_runner": [],
+ "amendment_5": {
+  "date": "2026-09-30, written before any simulation code or result exists",
+  "engine": "MuJoCo 3.3.7 (pip wheel sha256 898ff5b28069b06ee654011b88fbde8633ec540a854f82f49cd0472fe9224b5c); 3.5.0 has no cp39 wheel and failed to build",
+  "scale": "1 grid cell = 1 m; each obstacle cell is a 1 x 1 x 1 m box; horizontally contiguous obstacle cells are merged into one box per row run; map border is a wall",
+  "vehicle": {
+   "footprint": "cylinder chassis of radius r_body, height 0.3 m",
+   "mass_kg": 100.0,
+   "drive": "two powered wheels of radius 0.1 m on hinge joints at lateral offset 0.7*r_body, two frictionless caster spheres",
+   "wheel_actuator": "MuJoCo velocity servo, kv = 20, torque limit 10 N m per wheel",
+   "limits": {
+    "v_max": 1.0,
+    "a_max": 0.5,
+    "w_max": 1.0,
+    "aw_max": 1.0
+   },
+   "friction_nominal": 0.8,
+   "timestep_s": 0.002,
+   "control_hz": 50
+  },
+  "controller": "identical for every method, fixed before any run: rotate in place until |heading error| < 0.05 rad using a trapezoidal yaw profile, then track the segment with a trapezoidal speed profile on remaining distance plus cross-track and heading feedback on yaw rate (k_ct = 1.5, k_h = 2.0); waypoint reached when along-track progress >= segment length - 0.05 m; goal reached when distance to goal < 0.2 m",
+  "path_sets": {
+   "S0": "kin stage, warehouse, rho = 0 paths (point-mass planning), simulated with r_body = 0.5; methods Traditional A*, Weighted A*, Theta*, Weighted Theta*, Proposed, JPS; tests the point-mass objection of R4-2",
+   "S05": "kin stage, warehouse, rho = 0.5 paths, r_body = 0.5; same methods without JPS",
+   "S10": "footprint_r1q warehouse paths re-planned with rho = 1.0 by the same code, r_body = 1.0; methods Traditional A*, Theta*, Weighted Theta*, Proposed; a re-planned path is used only if its length and cost equal the stored record within 1e-9, otherwise the stage halts"
+  },
+  "noise": {
+   "localization": "Gaussian on the pose seen by the controller, sigma_xy = 0.02 m, sigma_yaw = 0.01 rad, redrawn each control step",
+   "actuation": "multiplicative Gaussian on each wheel command, sigma = 0.05",
+   "friction": "wheel-floor friction drawn once per run from U[0.6, 1.0]",
+   "seeds": "5 per path, seed = int(sha256(key|k))[:8] for k = 0..4"
+  },
+  "metrics": [
+   "reached (goal within 0.2 m before timeout)",
+   "clean success (reached and no chassis-obstacle contact)",
+   "number of contact episodes and total contact time between vehicle and obstacle boxes",
+   "max penetration depth",
+   "minimum measured clearance of the chassis centre to obstacles minus r_body",
+   "execution time",
+   "wheel energy = integral of sum |tau * omega| dt",
+   "mean and max cross-track error to the planned polyline"
+  ],
+  "timeout": "3 * kin_time of the path (or its analytic profile for S10) + 30 s",
+  "defensive": [
+   "NaN or |qvel| > 100 aborts the run and records error",
+   "per-run wall-clock timeout 600 s",
+   "seed 0 of every path is simulated twice and must match bit-for-bit, otherwise the stage halts",
+   "path, radius and endpoints are checked against the source record before simulation",
+   "unit tests against analytic motion (5 m straight trapezoid, 90 deg in-place turn) and a wall-contact test must pass before launch"
+  ],
+  "budget_rule": "fixed before the smoke test: if the estimated wall time at 8 processes exceeds 6 h, drop queries per map in the fixed order 4, 3, 2, 1 (keeping diag and 0) until it fits; if still too long reduce seeds from 5 to 3; all 100 maps are always kept",
+  "wording": "reported as high-fidelity physics simulation, not physical validation; no sensor model, no real localization stack, no multi-vehicle interaction, parameters are typical values not calibrated on a real AGV",
+  "fix_after_unit_test": "floor condim set to 1 so casters are frictionless (MuJoCo takes the max condim of a pair; default 3 made casters brake the vehicle, found when all analytic unit tests failed with the vehicle stationary); no vehicle, controller or noise parameter changed",
+  "budget_applied": "smoke test (24 S0 paths, 144 sims, 8 procs, 90 s) gives 0.625 s wall per sim; full 42000 sims = 7.3 h > 6 h; dropping query 4 gives 6.1 h > 6 h; dropping query 3 gives 5.0 h; run uses queries diag,0,1,2 with 5 seeds on all 100 maps; S10 unaffected (one query per map)"
+ },
+ "amendment_6": {
+  "date": "2026-09-30, written before any test-set or simulation metric was computed",
+  "e15_sensitivity": {
+   "source": "kin stage paths (path_sm), all envs, rho 0 and 0.5, all methods present there",
+   "design": "one-at-a-time around nominal (v_max 1.0, a_max 0.5, w_max 1.0, aw_max 1.0): v_max in {0.5,1.0,1.5,2.0}; a_max in {0.25,0.5,1.0}; w_max=aw_max in {0.5,1.0,2.0}",
+   "metrics": [
+    "kin_time",
+    "kin_energy"
+   ],
+   "report": "for each setting, paired difference Proposed minus each baseline (mean, 95% cluster bootstrap CI, Holm-adjusted p within family=(env,rho,setting,metric)); robustness = whether the sign and significance of the nominal comparison is preserved"
+  },
+  "analysis_rules": {
+   "primary_reference": "Proposed; every other method is compared to it; Traditional A* comparisons also reported for the percentage reductions",
+   "percent_change": "100*(mean_other - mean_proposed)/mean_other on query-level means",
+   "main_metrics": [
+    "nodes",
+    "reopened",
+    "length",
+    "cost",
+    "ratio",
+    "turns18",
+    "t_median (timing stages only)"
+   ],
+   "timing_sources": "only timing_main, timing_scale (single-process python) and timing_nb_* (compiled); t_search from parallel stages is never reported",
+   "mjsim_unit": "per path, average the 5 seeds for continuous metrics; reached/clean as fraction of 5 seeds; paired by (map, query) across methods within each set",
+   "failed_or_missing": "an instance enters a paired comparison only if both methods succeeded; the number excluded is reported",
+   "tables": "all LaTeX tables generated by script from jsonl, no hand transcription; best value per column marked bold, second underlined",
+   "no_post_hoc": "no metric, family, test or subset is added or removed after results are seen; any extra analysis is labelled exploratory"
+  }
+ },
+ "amendment_7": {
+  "date": "2026-09-30, written AFTER the main-stage test results were inspected",
+  "decision": "option A chosen by the author: the primary method stays the locked adaptive configuration (eps_max=1.3, beta=0.05); no method is re-selected on test data",
+  "fixed_eps": "Proposed (fixed eps) is reported only in the ablation and labelled post hoc exploratory; it is not a main result",
+  "test_disagreement": "decided after inspection, conservative direction only: a comparison is called significant only if both Holm-adjusted paired t and Holm-adjusted Wilcoxon p < 0.05; otherwise reported as not significant with both p values shown",
+  "adaptive_eps": "reported as a negative finding on the test set"
+ }
+}

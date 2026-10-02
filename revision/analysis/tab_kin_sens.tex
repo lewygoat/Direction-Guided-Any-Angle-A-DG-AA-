@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering\small
+\caption{E15 kinematic parameter sensitivity. Each cell shows the number of parameter settings (out of 10) where Proposed is significantly faster/more energy-efficient than Traditional A* (Holm $p<0.05$, $d<0$), tied (ns), or slower/higher-energy ($d>0$).}\label{tab:kin_sens}
+\begin{tabular}{lllrrrr}
+\toprule
+Env & $\rho$ & Metric & Better & NS & Worse & Total \\
+\midrule
+gen & 0.0 & kin\_energy & 1 & 2 & 7 & 10 \\
+gen & 0.0 & kin\_time & 1 & 5 & 4 & 10 \\
+gen & 0.5 & kin\_energy & 0 & 0 & 10 & 10 \\
+gen & 0.5 & kin\_time & 0 & 0 & 10 & 10 \\
+war & 0.0 & kin\_energy & 0 & 0 & 10 & 10 \\
+war & 0.0 & kin\_time & 0 & 0 & 10 & 10 \\
+war & 0.5 & kin\_energy & 0 & 0 & 10 & 10 \\
+war & 0.5 & kin\_time & 0 & 0 & 10 & 10 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -4,3 +4,8 @@ __pycache__/
 *.pyc
 *.bak
 *.original
+
+# revision raw logs and caches (regenerate from scripts)
+revision/results/
+revision/__pycache__/
+*.pyc

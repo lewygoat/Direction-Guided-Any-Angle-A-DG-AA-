@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Component ablation, general environment; stars: Holm-adjusted paired $t$-test vs full method.}\label{tab:abl_general}
+\begin{tabular}{lccccccc}
+\toprule
+Method & Nodes & Reopened & Length & Op. cost & $C/C^*_8$ & Turns & Time (ms) \\
+\midrule
+Proposed (beta=0) & $96.9\pm247.0$ & $31.14\pm207.43$ & $51.41\pm10.49^{***}$ & $51.41\pm10.49^{***}$ & $0.9737\pm0.0159^{***}$ & $7.98\pm3.64^{***}$ & -- \\
+Proposed (fixed eps) & $78.2\pm180.8^{***}$ & $17.95\pm152.67^{***}$ & $51.34\pm10.46$ & $51.34\pm10.46$ & $0.9723\pm0.0164$ & $\underline{7.72\pm3.33}$ & -- \\
+Proposed (grid only) & $\underline{75.1\pm54.5^{*}}$ & $\underline{1.14\pm5.93^{***}}$ & $51.88\pm10.68^{***}$ & $51.88\pm10.68^{***}$ & $0.9823\pm0.0180^{***}$ & $8.94\pm3.89^{***}$ & -- \\
+Proposed (no reopen) & $\mathbf{67.5\pm44.3^{***}}$ & $\mathbf{0.00\pm0.00^{***}}$ & $\underline{51.33\pm10.46^{**}}$ & $\underline{51.33\pm10.46^{**}}$ & $\underline{0.9722\pm0.0160^{*}}$ & $7.84\pm3.46^{***}$ & -- \\
+\textbf{Proposed} & $91.9\pm193.2$ & $25.52\pm158.35$ & $\mathbf{51.30\pm10.44}$ & $\mathbf{51.30\pm10.44}$ & $\mathbf{0.9718\pm0.0162}$ & $\mathbf{7.67\pm3.42}$ & $\mathbf{0.13\pm0.07}$ \\
+\bottomrule
+\end{tabular}
+\end{table}

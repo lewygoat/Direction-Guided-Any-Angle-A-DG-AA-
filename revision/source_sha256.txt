@@ -1,0 +1,77 @@
+70658087511a211523a49d0f85929fe2ebbce477d550bb733b56a7a9db1dbbf6  rv_geom.py
+1aee0a95e273e88b770f9f10723a63361e1fc0c13200dc210bb633154ac363b5  rv_planners.py
+a39ca0da2f93c65a4b041e20b0f936d8f8ed40afaed98642a03a119f87b03240  rv_core.py
+8f176fc17c0dcbc98f0ac1fe8911e1021b09fa059c4d3b45c0fd42e1e061b92c  rv_run.py
+55863e17ba149fb382ad875b8dc832a5b75d8244701b6a38401b334dbadfa3a9  rv_tests.py
+296e97dd11f207571244685a143ea2bcd1cbe6b5f2fbdf7efd9dbb0a4271c902  protocol.json
+b2594a778e5780b4afb9a20ab8c2a3554fd191ac2066809506c9a988e18f2029  ../code/environments.py
+42b57e0f95e6413f3df20028cd14f792878c21f0f1ec98c742a2c0c353e6e922  ../code/planners.py
+--- 2026-09-29 16:54:56 after footprint rho-shadowing fix
+70658087511a211523a49d0f85929fe2ebbce477d550bb733b56a7a9db1dbbf6  rv_geom.py
+1aee0a95e273e88b770f9f10723a63361e1fc0c13200dc210bb633154ac363b5  rv_planners.py
+ffe44865616de1799745892a25d01969fae2bd63844359e6434ebd3129d87935  rv_core.py
+cc350c53828f41b624b6f8788568516ba5550422a03009023249fb2281eb73de  rv_run.py
+55863e17ba149fb382ad875b8dc832a5b75d8244701b6a38401b334dbadfa3a9  rv_tests.py
+7cf59693c416cd87c8c0533e9d0c445c6dbf1310764ea4d461a7c655e1796e5e  protocol.json
+--- 2026-09-29 17:10:31 amendment_1 (W<=1.5 cap)
+70658087511a211523a49d0f85929fe2ebbce477d550bb733b56a7a9db1dbbf6  rv_geom.py
+1aee0a95e273e88b770f9f10723a63361e1fc0c13200dc210bb633154ac363b5  rv_planners.py
+ffe44865616de1799745892a25d01969fae2bd63844359e6434ebd3129d87935  rv_core.py
+e683a324753a4975933e8d420139be081c45105a4a7d84e96cbd13be92229852  rv_run.py
+55863e17ba149fb382ad875b8dc832a5b75d8244701b6a38401b334dbadfa3a9  rv_tests.py
+5339c3320271bf4271210da29f99036cb11488abb452e7f3ee7450f2c69b498e  protocol.json
+--- 2026-09-29 17:55:57 amendment_2 (frontier2, movingai, single-process timing)
+70658087511a211523a49d0f85929fe2ebbce477d550bb733b56a7a9db1dbbf6  rv_geom.py
+1aee0a95e273e88b770f9f10723a63361e1fc0c13200dc210bb633154ac363b5  rv_planners.py
+d59747419bb4ea1528f3dff34f3ef4151475ef74a1e7a0bba62769b3eae20a5f  rv_core.py
+b3dae16b9eeb68671df68e420253139b8c148083f5137a910c0c3174c87e9951  rv_run.py
+800c0eb275c886455ff84e201e93a9145e53d326b5a919e25e00f2a579031a36  rv_movingai.py
+55863e17ba149fb382ad875b8dc832a5b75d8244701b6a38401b334dbadfa3a9  rv_tests.py
+1beb4639a66dd3a1ab15b9ce7f2e38a85c3ee6be33043b01256978bab46a64ec  protocol.json
+--- 2026-09-30 10:00:55 amendment_3 (E10 numba timing, E15 kinematic)
+70658087511a211523a49d0f85929fe2ebbce477d550bb733b56a7a9db1dbbf6  rv_geom.py
+1aee0a95e273e88b770f9f10723a63361e1fc0c13200dc210bb633154ac363b5  rv_planners.py
+83ebe8af905ccfa33a93adcd506fdce7773ced830e16684c6152eb7b4386e8fb  rv_core.py
+cd479a7ba9f7e4b5302dfb4d08353df0ce5382514597ca4ca66cb75f37b24bd2  rv_run.py
+800c0eb275c886455ff84e201e93a9145e53d326b5a919e25e00f2a579031a36  rv_movingai.py
+4a3b254a0e6ba45f8c9b7b8428b51c78d84ffd54d431cd4b0a1e19b3bfb70a61  rv_numba.py
+57a8bb75de60bec8dc3bc27ae821b631eab7d81a12687e6742a7aa7c2bcd36b7  rv_numba_equiv.py
+312cadb7683166c4606e9d9c03b5c6d3eac2b3ddae365a8ffe2ae35095de9554  rv_kin.py
+55863e17ba149fb382ad875b8dc832a5b75d8244701b6a38401b334dbadfa3a9  rv_tests.py
+091a927ce0f28bd7ac6f3fd85b238ff1b41c51f5c197395316fe967c63af6c53  protocol.json
+numba 0.60.0
+--- 2026-09-30 10:02:14 protocol.json after amendment_3 text written (edit only, no code change, no result inspected)
+091a927ce0f28bd7ac6f3fd85b238ff1b41c51f5c197395316fe967c63af6c53  protocol.json
+--- 2026-09-30 10:38:23 amendment_4 (bridge ladder, footprint rho=1.0, MovingAI compiled timing)
+d6e90d6a30f61f4d1a3f6d44522c1432200e6b3ce79f27dbaf7a378f536a132c  rv_geom.py
+2aed3a7864eeff41aa8428486bb9ee18bb9bcc823e81695aadaac1ad8174e645  rv_planners.py
+1d83e4b71eeec7f95db3e56a80a316768e18961cac6e61904803486cbb23dd54  rv_core.py
+c9691517df44153e2f54f878bf388390ae2068335195cb6625e0a42b3ccfe6a5  rv_run.py
+800c0eb275c886455ff84e201e93a9145e53d326b5a919e25e00f2a579031a36  rv_movingai.py
+4a3b254a0e6ba45f8c9b7b8428b51c78d84ffd54d431cd4b0a1e19b3bfb70a61  rv_numba.py
+57a8bb75de60bec8dc3bc27ae821b631eab7d81a12687e6742a7aa7c2bcd36b7  rv_numba_equiv.py
+312cadb7683166c4606e9d9c03b5c6d3eac2b3ddae365a8ffe2ae35095de9554  rv_kin.py
+aa47725adcb8591240775a029a6b20a5e66021d79a0e93e9033f48b043c74b79  rv_bridge.py
+55863e17ba149fb382ad875b8dc832a5b75d8244701b6a38401b334dbadfa3a9  rv_tests.py
+f1f6d24e319a068e74da1db6a04f0bd12b6dec080030ce0cd4c5d6195cb632fb  protocol.json
+--- 2026-09-30 10:38:59 protocol.json after amendment_4 text written (text only, written after launch, no result inspected)
+f1f6d24e319a068e74da1db6a04f0bd12b6dec080030ce0cd4c5d6195cb632fb  protocol.json
+--- 2026-09-30 11:09:15 mujoco install (amendment_5 prep)
+mujoco==3.3.7 wheel sha256 898ff5b28069b06ee654011b88fbde8633ec540a854f82f49cd0472fe9224b5c
+deps: etils==1.5.2 glfw==2.10.2 pyopengl==3.1.10; numpy==2.0.2 unchanged
+--- 2026-09-30 11:17:44 protocol.json after amendment_5 (before any sim code)
+979084ade02b0eafb679a45de1832eef0a6419c08918e17bf35cd4e5a1917ea2  protocol.json
+mujoco wheel 898ff5b28069b06ee654011b88fbde8633ec540a854f82f49cd0472fe9224b5c  mujoco-3.3.7-cp39-cp39-macosx_11_0_arm64.whl
+--- 2026-09-30 11:39:27 protocol.json after amendment_5 fix+budget (no sim result inspected)
+8eb59da7159b0415cf1a7c262e9223941d167fa31e0e470e4342d4756509a53a  protocol.json
+f9f20c7f02cfd6fcfadc73c033a765449be13161d0117f6bf9adec79115fa59f  rv_mjsim.py
+6bad2732c72f36faf07b89cb963dd6b62c98c8e66bd7522e2e05b9b1d4087769  rv_mjrun.py
+--- 2026-09-30 16:22:27 protocol.json after amendment_6 (before any metric)
+aadb0c5d6e61dbbc628d228352c7872db52a244854d773e57448366c1824c977  protocol.json
+--- 2026-09-30 16:44:02 protocol.json after amendment_7 (post-inspection decision)
+2685cd28dfa2335e519d9ab4621f439af62b6d6aad44a31ef2eb0a8ebb742e85  protocol.json
+--- 2026-10-02 12:10:59 references fixed (4 fabricated replaced, Crossref-verified), fig6 redrawn, response letter appendix added
+2f4c2fcf18fcb2c01c0c2793ceecb9fab906cceb6b4ab6db8cf7bcc84f5fa257  references.bib
+e7f0b58d2e5dfd8bdd4674098735c0a1c860cdd3943fcd6d9df6c89f1469639b  revised_manuscript.tex
+c5118fd5e30163b20a510f5632d98fb6aae7782841ecbbe4e162cd477da46832  response_letter_draft.tex
+51e22d025057cb7503cfddad7529248cf02769d6310792aecf1860708e0b7161  rv_fig_pareto.py

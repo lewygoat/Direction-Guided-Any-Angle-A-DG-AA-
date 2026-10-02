@@ -1,0 +1,22 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Attribution ladder: mean nodes and operational cost at each algorithmic step. Evaluated on the same maps and queries as the main experiment.}\label{tab:bridge}
+\begin{tabular}{lrrrr}
+\toprule
+Step & Nodes & Length & Model cost & $C_m/C^*_8$ \\
+\midrule
+B0 Trad.~A* (orig) & 410.1 & 49.832 & 59.909 & 1.031 \\
+B1 Trad.~A* (rev) & 579.5 & 51.324 & 57.961 & 1.000 \\
+\midrule
+L0 orig & 106.8 & 50.039 & 54.743 & 0.946 \\
+L1 re-impl & 106.6 & 50.040 & 54.748 & 0.946 \\
+L2 +exact LOS & 107.8 & 50.859 & 55.420 & 0.958 \\
+L3 +int.~cost & 147.9 & 50.825 & 56.036 & 0.967 \\
+L4 +cost parent & 138.9 & 50.435 & 55.888 & 0.965 \\
+L5 +reopen & 195.0 & 50.371 & 55.712 & 0.962 \\
+L6 +mono.~smooth & 195.0 & 50.455 & 55.712 & 0.962 \\
+L7 +adaptive $\varepsilon$ & 347.5 & 50.548 & 55.586 & 0.960 \\
+\textbf{L8 (= Proposed)} & 394.4 & 50.753 & 55.731 & 0.963 \\
+\bottomrule
+\end{tabular}
+\end{table}

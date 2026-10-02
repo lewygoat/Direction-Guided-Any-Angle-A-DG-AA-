@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Node expansion and time across map sizes (compiled single-process timing, $n=30$ per cell). Node reduction: percentage fewer nodes than Traditional A*.}\label{tab:scale}
+\begin{tabular}{llrrrrrrr}
+\toprule
+Env & Size & Trad.~A* & Theta* & W.Theta* & JPS & Proposed & Node red. & Time red. \\
+\midrule
+Gen & 20 & 76 & 68 & 36 & 40 & 36 & 52.3\% & -23.3\% \\
+Gen & 50 & 523 & 437 & 76 & 280 & 86 & 83.6\% & 55.9\% \\
+Gen & 100 & 2078 & 1641 & 150 & 1166 & 222 & 89.3\% & 70.4\% \\
+Gen & 150 & 5002 & 4024 & 241 & 2868 & 469 & 90.6\% & 71.8\% \\
+War & 50 & 880 & 825 & 324 & 83 & 671 & 23.7\% & -155.5\% \\
+War & 100 & 3173 & 3011 & 966 & 319 & 4366 & -37.6\% & -368.0\% \\
+War & 150 & 7268 & 6926 & 2185 & 829 & 19981 & -174.9\% & -842.3\% \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering\small
+\caption{MovingAI warehouse benchmark (unit-cost, no hotspots). Stars: Holm-adjusted paired $t$-test vs Proposed.}\label{tab:movingai}
+\begin{tabular}{lrrrrr}
+\toprule
+Method & Nodes & Length & $C/C^*_8$ & Turns & Time (ms) \\
+\midrule
+Traditional A$^{*}$ & $1895.99\pm2259.88^{***}$ & $117.24\pm72.80^{***}$ & $0.98\pm0.02^{***}$ & $12.88\pm14.87$ & $0.789\pm0.976$ \\
+Theta$^{*}$ & $1603.98\pm2019.89^{***}$ & $116.58\pm72.45^{***}$ & $0.98\pm0.02^{***}$ & $13.78\pm15.45^{***}$ & $3.329\pm6.021$ \\
+Weighted Theta$^{*}$ & $268.39\pm399.87^{***}$ & $118.81\pm74.10^{***}$ & $1.00\pm0.03^{***}$ & $11.02\pm10.48^{***}$ & $0.275\pm0.294$ \\
+Weighted Theta$^{*}$ (matched W) & $143.34\pm89.93^{***}$ & $119.09\pm74.16^{***}$ & $1.00\pm0.03^{***}$ & $10.47\pm9.91^{***}$ & -- \\
+JPS & $396.33\pm471.43^{***}$ & $118.15\pm73.30$ & $0.99\pm0.02$ & $12.40\pm14.69$ & $0.070\pm0.071$ \\
+\textbf{Proposed} & $679.76\pm1358.90$ & $118.25\pm73.69$ & $0.99\pm0.03$ & $12.34\pm11.79$ & $0.802\pm1.710$ \\
+Proposed (beta=0) & $996.70\pm2476.58^{***}$ & $118.01\pm73.45^{***}$ & $0.99\pm0.03^{***}$ & $13.02\pm12.53^{***}$ & -- \\
+\bottomrule
+\end{tabular}
+\end{table}

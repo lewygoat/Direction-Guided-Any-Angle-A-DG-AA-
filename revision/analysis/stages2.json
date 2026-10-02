@@ -1,0 +1,115 @@
+{
+ "scale": [
+  [
+   {
+    "env": "general",
+    "size": 20,
+    "node_reduction_pct": 52.26772346983708,
+    "time_reduction_pct": -23.325566435467273
+   },
+   {
+    "env": "general",
+    "size": 50,
+    "node_reduction_pct": 83.60112216271358,
+    "time_reduction_pct": 55.86596549358666
+   },
+   {
+    "env": "general",
+    "size": 100,
+    "node_reduction_pct": 89.31470371202155,
+    "time_reduction_pct": 70.38207727597712
+   },
+   {
+    "env": "general",
+    "size": 150,
+    "node_reduction_pct": 90.62643681990525,
+    "time_reduction_pct": 71.8244145855183
+   },
+   {
+    "env": "warehouse",
+    "size": 50,
+    "node_reduction_pct": 23.745502745692104,
+    "time_reduction_pct": -155.5179945735322
+   },
+   {
+    "env": "warehouse",
+    "size": 100,
+    "node_reduction_pct": -37.58771376948612,
+    "time_reduction_pct": -367.9835161395232
+   },
+   {
+    "env": "warehouse",
+    "size": 150,
+    "node_reduction_pct": -174.9160719854708,
+    "time_reduction_pct": -842.3236902038461
+   }
+  ]
+ ],
+ "footprint_stages": [
+  "footprint",
+  "footprint_r1",
+  "footprint_r1q"
+ ],
+ "movingai_maps": [
+  "warehouse-10-20-10-2-1",
+  "warehouse-10-20-10-2-2",
+  "warehouse-20-40-10-2-1",
+  "warehouse-20-40-10-2-2"
+ ],
+ "bridge_steps": 8,
+ "kin_sens_summary": {
+  "('general', 0.0, 'kin_time')": {
+   "better": 1,
+   "worse": 4,
+   "ns": 5,
+   "total": 10
+  },
+  "('general', 0.0, 'kin_energy')": {
+   "better": 1,
+   "worse": 7,
+   "ns": 2,
+   "total": 10
+  },
+  "('general', 0.5, 'kin_time')": {
+   "better": 0,
+   "worse": 10,
+   "ns": 0,
+   "total": 10
+  },
+  "('general', 0.5, 'kin_energy')": {
+   "better": 0,
+   "worse": 10,
+   "ns": 0,
+   "total": 10
+  },
+  "('warehouse', 0.0, 'kin_time')": {
+   "better": 0,
+   "worse": 10,
+   "ns": 0,
+   "total": 10
+  },
+  "('warehouse', 0.0, 'kin_energy')": {
+   "better": 0,
+   "worse": 10,
+   "ns": 0,
+   "total": 10
+  },
+  "('warehouse', 0.5, 'kin_time')": {
+   "better": 0,
+   "worse": 10,
+   "ns": 0,
+   "total": 10
+  },
+  "('warehouse', 0.5, 'kin_energy')": {
+   "better": 0,
+   "worse": 10,
+   "ns": 0,
+   "total": 10
+  }
+ },
+ "mjsim_sets": [
+  "S0",
+  "S05",
+  "S10"
+ ]
+}

@@ -1,0 +1,27 @@
+\begin{table}[htbp]
+\centering\small
+\caption{MuJoCo physics simulation results (5 noise seeds per path, averaged). Reached: fraction reaching goal. Clean: reached with no contact. Stars: Holm-adjusted paired $t$-test vs Proposed.}\label{tab:mjsim}
+\begin{tabular}{llrrrrrr}
+\toprule
+Set & Method & Reached & Clean & Contacts & Exec (s) & Energy & XTrack \\
+\midrule
+S0 & Traditional A$^{*}$ & $0.00$ & $0.00$ & $7.71^{*}$ & $60.47$ & $861.43^{*}$ & $0.16$ \\
+ & Weighted A$^{*}$ & $0.01$ & $0.01$ & $8.68$ & $47.61$ & $856.83^{**}$ & $0.16$ \\
+ & Theta$^{*}$ & $0.00$ & $0.00$ & $9.68$ & -- & $711.24$ & $0.16$ \\
+ & Weighted Theta$^{*}$ & $0.01$ & $0.01$ & $10.22$ & $48.72$ & $773.77$ & $0.16$ \\
+ & \textbf{Proposed} & $0.00$ & $0.00$ & $10.79$ & $53.36$ & $762.22$ & $0.15$ \\
+ & JPS & $0.01$ & $0.01$ & $8.52$ & $48.43$ & $793.08$ & $0.17^{***}$ \\
+\midrule
+S05 & Traditional A$^{*}$ & $0.28^{*}$ & $0.14^{***}$ & $17.20^{***}$ & $78.76^{**}$ & $3384.26^{***}$ & $0.07^{***}$ \\
+ & Weighted A$^{*}$ & $0.31^{***}$ & $0.16^{***}$ & $15.92^{***}$ & $77.42^{***}$ & $3327.21^{**}$ & $0.07^{***}$ \\
+ & Theta$^{*}$ & $0.20^{*}$ & $0.06$ & $27.75$ & $87.98$ & $2954.02$ & $0.04$ \\
+ & Weighted Theta$^{*}$ & $0.23$ & $0.09$ & $28.15$ & $84.88$ & $2983.78$ & $0.05$ \\
+ & \textbf{Proposed} & $0.23$ & $0.08$ & $29.81$ & $90.45$ & $2968.20$ & $0.04$ \\
+\midrule
+S10 & Traditional A$^{*}$ & $1.00$ & $1.00$ & $0.02$ & $78.47^{***}$ & $7512.34^{**}$ & $0.02$ \\
+ & Theta$^{*}$ & $1.00$ & $1.00$ & $0.00$ & $84.61^{**}$ & $7482.19^{**}$ & $0.02$ \\
+ & Weighted Theta$^{*}$ & $1.00$ & $1.00$ & $0.00$ & $88.04$ & $7388.95^{**}$ & $0.02$ \\
+ & \textbf{Proposed} & $1.00$ & $1.00$ & $0.00$ & $87.19$ & $7434.07$ & $0.02$ \\
+\bottomrule
+\end{tabular}
+\end{table}
