@@ -1,0 +1,15 @@
+{
+  "python": "3.9.6 (default, Dec  2 2025, 07:27:58) \n[Clang 17.0.0 (clang-1700.6.3.2)]",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "numpy": "2.0.2",
+  "cpu": 10,
+  "n_proc": 8,
+  "argv": [
+    "rv_run.py",
+    "bridge",
+    "footprint_r1",
+    "footprint_r1q",
+    "timing_nb_movingai"
+  ],
+  "started": "2026-09-30 10:38:23"
+}

@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Warehouse environment, mean$\pm$std over 600 queries; stars: Holm-adjusted paired $t$-test vs Proposed.}\label{tab:main_warehouse}
+\begin{tabular}{lccccccc}
+\toprule
+Method & Nodes & Reopened & Length & Op. cost & $C/C^*_8$ & Turns & Time (ms) \\
+\midrule
+Traditional A$^{*}$ & $791.7\pm237.3^{***}$ & $\mathbf{0.00\pm0.00^{***}}$ & $51.19\pm6.89^{***}$ & $62.03\pm7.91^{***}$ & $0.9821\pm0.0091^{***}$ & $\mathbf{7.26\pm2.93}$ & $0.39\pm0.15^{***}$ \\
+Weighted A$^{*}$ & $608.6\pm891.6^{*}$ & $281.39\pm863.57^{*}$ & $50.80\pm6.72^{***}$ & $62.22\pm7.87^{***}$ & $0.9853\pm0.0163^{***}$ & $7.35\pm2.99$ & $\underline{0.36\pm0.97^{***}}$ \\
+16-neighbor A$^{*}$ & $744.2\pm224.9^{*}$ & $\mathbf{0.00\pm0.00^{***}}$ & $50.43\pm6.62^{***}$ & $\underline{61.34\pm7.77^{***}}$ & $\underline{0.9712\pm0.0089^{***}}$ & $7.67\pm3.18^{***}$ & $1.34\pm0.46$ \\
+Theta$^{*}$ & $739.0\pm222.2^{*}$ & $\underline{4.46\pm5.25^{***}}$ & $50.43\pm6.63^{***}$ & $\mathbf{61.26\pm7.76^{***}}$ & $\mathbf{0.9700\pm0.0087^{***}}$ & $\underline{7.29\pm3.17}$ & $1.27\pm0.46$ \\
+JPS & $\mathbf{93.7\pm45.8^{***}}$ & $\mathbf{0.00\pm0.00^{***}}$ & $51.51\pm6.73^{***}$ & $66.68\pm8.92^{***}$ & $1.0554\pm0.0362^{***}$ & $8.32\pm3.77^{***}$ & $\mathbf{0.01\pm0.01^{***}}$ \\
+Weighted Theta$^{*}$ & $350.5\pm209.8^{***}$ & $95.08\pm126.20^{***}$ & $\underline{50.18\pm6.53}$ & $61.55\pm7.74^{**}$ & $0.9748\pm0.0152^{**}$ & $7.48\pm3.34$ & $0.50\pm0.37^{***}$ \\
+Weighted Theta$^{*}$ (matched W) & $\underline{165.0\pm127.1^{***}}$ & $52.55\pm88.18^{***}$ & $\mathbf{49.83\pm6.41^{***}}$ & $62.42\pm7.95^{***}$ & $0.9886\pm0.0271^{***}$ & $7.92\pm3.63^{***}$ & -- \\
+\textbf{Proposed} & $696.8\pm554.3$ & $347.29\pm473.06$ & $50.20\pm6.54$ & $61.48\pm7.71$ & $0.9737\pm0.0165$ & $7.36\pm3.28$ & $1.27\pm1.16$ \\
+\bottomrule
+\end{tabular}
+\end{table}

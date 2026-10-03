@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering\small
+\caption{General environment, mean$\pm$std over 600 queries; stars: Holm-adjusted paired $t$-test vs Proposed.}\label{tab:main_general}
+\begin{tabular}{lccccccc}
+\toprule
+Method & Nodes & Reopened & Length & Op. cost & $C/C^*_8$ & Turns & Time (ms) \\
+\midrule
+Traditional A$^{*}$ & $367.4\pm151.6^{***}$ & $\mathbf{0.00\pm0.00^{***}}$ & $51.46\pm10.48^{***}$ & $51.46\pm10.48^{***}$ & $0.9746\pm0.0136^{***}$ & $7.88\pm3.09$ & $0.25\pm0.06^{***}$ \\
+Weighted A$^{*}$ & $\mathbf{62.8\pm49.2^{***}}$ & $\underline{1.52\pm9.45^{***}}$ & $51.97\pm10.70^{***}$ & $51.97\pm10.70^{***}$ & $0.9840\pm0.0184^{***}$ & $9.11\pm3.98^{***}$ & $\underline{0.04\pm0.01^{***}}$ \\
+16-neighbor A$^{*}$ & $270.7\pm139.1^{***}$ & $\mathbf{0.00\pm0.00^{***}}$ & $\underline{50.79\pm10.33^{***}}$ & $\underline{50.79\pm10.33^{***}}$ & $\underline{0.9621\pm0.0116^{***}}$ & $\underline{6.62\pm3.15^{***}}$ & $0.66\pm0.21^{***}$ \\
+Theta$^{*}$ & $272.2\pm151.1^{***}$ & $22.71\pm27.19$ & $\mathbf{50.72\pm10.29^{***}}$ & $\mathbf{50.72\pm10.29^{***}}$ & $\mathbf{0.9607\pm0.0111^{***}}$ & $\mathbf{5.22\pm2.61^{***}}$ & $0.64\pm0.21^{***}$ \\
+JPS & $195.8\pm83.5^{***}$ & $\mathbf{0.00\pm0.00^{***}}$ & $51.69\pm10.47^{***}$ & $51.69\pm10.47^{***}$ & $0.9793\pm0.0126^{***}$ & $7.79\pm3.16$ & $\mathbf{0.03\pm0.01^{***}}$ \\
+Weighted Theta$^{*}$ & $76.3\pm205.6^{***}$ & $18.11\pm174.63^{***}$ & $51.43\pm10.52^{***}$ & $51.43\pm10.52^{***}$ & $0.9739\pm0.0162^{***}$ & $8.22\pm3.79^{***}$ & $0.09\pm0.03^{***}$ \\
+Weighted Theta$^{*}$ (matched W) & $\underline{71.5\pm239.4^{***}}$ & $16.72\pm217.30^{*}$ & $51.66\pm10.55^{***}$ & $51.66\pm10.55^{***}$ & $0.9785\pm0.0180^{***}$ & $8.46\pm3.96^{***}$ & -- \\
+\textbf{Proposed} & $91.9\pm193.2$ & $25.52\pm158.35$ & $51.30\pm10.44$ & $51.30\pm10.44$ & $0.9718\pm0.0162$ & $7.67\pm3.42$ & $0.13\pm0.07$ \\
+\bottomrule
+\end{tabular}
+\end{table}
